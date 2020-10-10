@@ -2489,7 +2489,12 @@ fi
     have_rust_vendor="no"
 
     if test "x$cross_compiling" = "xyes"; then
-      RUST_SURICATA_LIB_XC_DIR="${host_alias}/"
+      if test "x$RUST_TARGET" != "x"; then
+        RUST_SURICATA_LIB_XC_DIR="$RUST_TARGET/"
+        AC_SUBST([RUST_TARGET],["--target $RUST_TARGET"])
+      else
+        RUST_SURICATA_LIB_XC_DIR="${host_alias}/"
+      fi
     else
       if test "x$CARGO_BUILD_TARGET" = "x"; then
         RUST_SURICATA_LIB_XC_DIR=
