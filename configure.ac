@@ -1219,6 +1219,8 @@
         fi
     fi
 
+    PKG_CHECK_MODULES([PCAP],libpcap,[CPPFLAGS="${CPPFLAGS} ${PCAP_CFLAGS}" LIBS="${LIBS} ${PCAP_LIBS}"],[:])
+
     if test "$have_wpcap" != "yes"; then
         AC_CHECK_LIB(pcap, pcap_open_dead, [], [
             echo
@@ -1233,8 +1235,6 @@
         ])
         PCAP_LIB_NAME="pcap"
     fi
-
-    PKG_CHECK_MODULES([PCAP],libpcap,[CPPFLAGS="${CPPFLAGS} ${PCAP_CFLAGS}" LIBS="${LIBS} ${PCAP_LIBS}"],[:])
 
     AC_PATH_PROG(HAVE_PCAP_CONFIG, pcap-config, "no")
     if test "$HAVE_PCAP_CONFIG" = "no" -o "$cross_compiling" = "yes"; then
